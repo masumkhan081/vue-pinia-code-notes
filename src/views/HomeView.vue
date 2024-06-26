@@ -2,33 +2,28 @@
   <div class="home">
     <h1>Home</h1>
 
-    <h3>Count: {{ count }}</h3>
-    <h3>Count: {{ oddOrEven }}</h3>
+
+    <Counter/>
+
+    <h3>Count: {{ storeCounter.count }}</h3>
+    <h3>Count: {{ storeCounter.oddOrEven }}</h3>
+
 
     <div class="actions">
-      <button @click="increaseCount">+</button>
-      <button @click="decreaseCount">-</button>
+      <button @click="storeCounter.increment">+</button>
+      <button @click="storeCounter.decrement">-</button>
+    </div>
+    <div class="actions">
+       <input type="number" v-model="storeCounter.count">
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-const count = ref(0)
-const oddOrEven = computed(() => {
-  if (count.value % 2 == 0) {
-    return 'even'
-  } else {
-    return 'odd'
-  }
-})
+import Counter from '@/components/Counter.vue'
+import { useCounterStore } from '@/stores/counter'
 
-const increaseCount = () => {
-  count.value++
-}
-const decreaseCount = () => {
-  count.value--
-}
+const storeCounter = useCounterStore()
 </script>
 
 <style>
